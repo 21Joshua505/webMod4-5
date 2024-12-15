@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pemesanan</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e5e5e5;
+        }
+
+        input, select {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="button"], input[type="reset"] {
+            width: auto;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            margin-right: 10px;
+        }
+
+        input[type="button"] {
+            background-color: rgb(0, 28, 139);
+        }
+
+        input[type="reset"] {
+            background-color: orange;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        form {
+            background-color: rgb(113, 127, 135);
+            padding: 20px;
+            border-radius: 10px;
+            width: 500px;
+            margin: 50px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function prosesPemesanan() {
+            // Ambil data dari form
+            var nama = document.getElementById("nama").value;
+            var jenisKelamin = document.getElementById("jenisKelamin").value;
+            var nomorIdentitas = document.getElementById("nomorIdentitas").value;
+            var tanggal_pesan = document.getElementById("tanggal_pesan").value;
+            var tipeKamar = document.getElementById("tipeKamar").value;
+            var durasi = parseInt(document.getElementById("durasi").value);
+            var breakfast = document.getElementById("breakfast").checked;
+
+            // Validasi input
+            if (!nama || !jenisKelamin || !nomorIdentitas || !tanggal_pesan || !tipeKamar || !durasi) {
+                alert("Semua field harus diisi!");
+                return;
+            }
+
+            // Hitung total bayar
+            var hargaKamar = 0;
+            if (tipeKamar === "Standar") {
+                hargaKamar = 1000000;
+            } else if (tipeKamar === "Deluxe") {
+                hargaKamar = 2000000;
+            } else if (tipeKamar === "Family") {
+                hargaKamar = 3000000;
+            }
+
+            var totalBayar = hargaKamar * durasi;
+            var diskon = 0;
+
+            // Tambah biaya breakfast
+            if (breakfast) {
+                totalBayar += 80000 * durasi;
+            }
+
+            // Diskon jika menginap lebih dari 3 hari
+            if (durasi > 3) {
+                diskon = totalBayar * 0.1; // 10% diskon
+                totalBayar -= diskon;
+            }
+
+            // Format total bayar ke format rupiah
+            var formattedTotalBayar = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(totalBayar);
+
+            // Tampilkan pesan
+            alert(`Pemesanan atas nama: ${nama} berhasil disimpan!
+Jenis Kelamin: ${jenisKelamin}
+Nomor Identitas: ${nomorIdentitas}
+Tanggal Pesan: ${tanggal_pesan}
+Tipe Kamar: ${tipeKamar}
+Durasi Penginapan: ${durasi} hari
+Diskon: ${diskon > 0 ? "10%" : "Tidak Ada"}
+Total Bayar: ${formattedTotalBayar}`);
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <form id="formPemesanan">
+            <h1>Form Pemesanan</h1>
+            <table>
+                <tr>
+                    <td><label for="nama">Nama Pemesan</label></td>
+                    <td><input type="text" id="nama" name="nama" required></td>
+                </tr>
+                <tr>
+                    <td><label for="jenisKelamin">Jenis Kelamin</label></td>
+                    <td>
+                        <select id="jenisKelamin" name="jenisKelamin" required>
+                            <option value="">--Pilih--</option>
+                            <option value="Laki-Laki">Laki-Laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="nomorIdentitas">Nomor Identitas</label></td>
+                    <td><input type="text" id="nomorIdentitas" name="nomorIdentitas" maxlength="16" required></td>
+                </tr>
+                <tr>
+                    <td><label for="tanggal_pesan">Tanggal Pesan</label></td>
+                    <td><input type="date" id="tanggal_pesan" name="tanggal_pesan" required></td>
+                </tr>
+                <tr>
+                    <td><label for="tipeKamar">Tipe Kamar</label></td>
+                    <td>
+                        <select id="tipeKamar" name="tipeKamar" required>
+                            <option value="">--Pilih--</option>
+                            <option value="Standar">Standar</option>
+                            <option value="Deluxe">Deluxe</option>
+                            <option value="Family">Family</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="durasi">Durasi Menginap</label></td>
+                    <td><input type="number" id="durasi" name="durasi" min="1" required> Hari</td>
+                </tr>
+                <tr>
+                    <td><label for="breakfast">Termasuk Breakfast</label></td>
+                    <td><input type="checkbox" id="breakfast" name="breakfast"> Ya</td>
+                </tr>
+            </table>
+            <div class="button-container">
+                <input type="button" value="Simpan" onclick="prosesPemesanan()">
+                <input type="reset" value="Batal">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

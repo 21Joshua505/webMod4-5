@@ -1,0 +1,74 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e5e5e5;
+}
+
+input, select {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[type="button"], input[type="reset"] {
+    width: auto;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    margin-right: 10px;
+}
+
+input[type="button"] {
+    background-color: rgb(0, 28, 139);
+}
+
+input[type="reset"] {
+    background-color: orange;
+}
+
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+form {
+    background-color: rgb(113, 127, 135);
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    margin: 50px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Tambahan untuk sejajarkan radio button */
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.radio-group label {
+    margin-right: 10px;
+    font-size: 14px;
+    color: white;
+}

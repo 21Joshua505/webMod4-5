@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perhitungan Gaji</title>
+    <script>
+        function hit() {
+            // Ambil nilai dari form
+            const golongan = document.form1.gol.value; // Nilai golongan
+            const jumlahAnak = parseInt(document.form1.anak.value) || 0; // Jumlah anak
+            let gajiPokok = 0;
+            let persenTunjangan = 0;
+
+            // Tentukan gaji pokok dan persen tunjangan berdasarkan golongan
+            switch (golongan) {
+                case "I":
+                    gajiPokok = 250000;
+                    persenTunjangan = 0.05; // 5%
+                    break;
+                case "II":
+                    gajiPokok = 300000;
+                    persenTunjangan = 0.10; // 10%
+                    break;
+                case "III":
+                    gajiPokok = 350000;
+                    persenTunjangan = 0.15; // 15%
+                    break;
+                default:
+                    alert("Pilih golongan terlebih dahulu!");
+                    return;
+            }
+
+            // Hitung tunjangan dan gaji bersih
+            const tunjangan = (jumlahAnak * gajiPokok) * persenTunjangan;
+            const gajiBersih = gajiPokok + tunjangan;
+
+            // Tampilkan hasil ke dalam form
+            document.form1.gapok.value = gajiPokok.toLocaleString("id-ID");
+            document.form1.tunjangan.value = tunjangan.toLocaleString("id-ID");
+            document.form1.gaji.value = gajiBersih.toLocaleString("id-ID");
+        }
+    </script>
+</head>
+<body>
+    <h1>PERHITUNGAN GAJI</h1>
+    <form name="form1">
+        <label for="gol">Golongan:</label>
+        <select name="gol" id="gol">
+            <option value="">Pilih Golongan</option>
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="III">III</option>
+        </select>
+        <br><br>
+
+        <label for="anak">Jumlah Anak:</label>
+        <input type="text" name="anak" id="anak" size="10" maxlength="10">
+        <br><br>
+
+        <input type="button" name="hitung" value="Hitung" onclick="hit()">
+        <input type="reset" name="Batal" value="Cancel">
+        <br><br>
+
+        <label for="gapok">Gaji Pokok:</label>
+        <input type="text" name="gapok" id="gapok" readonly>
+        <br><br>
+
+        <label for="tunjangan">Tunjangan:</label>
+        <input type="text" name="tunjangan" id="tunjangan" readonly>
+        <br><br>
+
+        <label for="gaji">Gaji Bersih:</label>
+        <input type="text" name="gaji" id="gaji" readonly>
+    </form>
+</body>
+</html>
